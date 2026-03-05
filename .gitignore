@@ -1,5 +1,5 @@
 HELP.md
-##target/
+target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -19,7 +19,7 @@ HELP.md
 *.iml
 *.ipr
 *.class
-##*.jar
+*.jar
 *.log
 .idea/
 *.iml
