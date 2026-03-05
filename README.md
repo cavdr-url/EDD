@@ -16,3 +16,6 @@
 - git remote add origin https://github.com/cavdr-url/EDD.git
 - git branch -M main
 - git push -u origin main
+
+# INFORMACIÓN
+- https://www.youtube.com/watch?v=4X-jLAI6rDg
