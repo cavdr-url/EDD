@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario - Sistema de Vacunas</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootswatch Theme (Watch) -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
+    
+    <!-- DataTables CSS (Bootstrap 5) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <!-- DataTables Buttons CSS (Bootstrap 5) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+</head>
+<body>
+    <!-- Barra de navegación con botón de cerrar sesión -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Panel de Usuario</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a th:href="@{/usuario/derechos}" class="btn btn-outline-light btn-sm me-2"><i class="fas fa-users"></i> Creadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="form-inline">
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid mt-1">
+        <!-- Tabs de navegación con scroll horizontal en móviles -->
+        <ul class="nav nav-tabs flex-nowrap" id="userTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="mascotas-tab" data-bs-toggle="tab" href="#mascotas" role="tab">
+                    <i class="fas fa-dog d-none d-sm-inline"></i> Mascotas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="vacunas-tab" data-bs-toggle="tab" href="#vacunas" role="tab">
+                    <i class="fas fa-syringe d-none d-sm-inline"></i> Vacunas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="aplicaciones-tab" data-bs-toggle="tab" href="#aplicaciones" role="tab">
+                    <i class="fas fa-hospital d-none d-sm-inline"></i> Aplicaciones
+                </a>
+            </li>
+        </ul>
+        
+        <!-- Contenido de los tabs -->
+        <div class="tab-content" id="userTabsContent">
+            
+            <!-- Tab Mascotas -->
+            <div class="tab-pane fade show active" id="mascotas" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center flex-wrap">
+                        <h4 class="card-title mb-0"><i class="fas fa-dog"></i> Listado de Mascotas</h4>
+                        <span class="badge bg-light text-dark">Total: <span th:text="${total}">0</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="mascotasTable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-id-badge"></i> ID</th>
+                                        <th><i class="fas fa-paw"></i> Nombre</th>
+                                        <th><i class="fas fa-qrcode"></i> Código</th>
+                                        <th><i class="fas fa-dog"></i> Raza</th>
+                                        <th><i class="fas fa-birthday-cake"></i> Edad (meses)</th>
+                                        <th><i class="fas fa-calendar-alt"></i> Fecha Ingreso</th>
+                                        <th><i class="fas fa-comment"></i> Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="mascota : ${resources}">
+                                        <td th:text="${mascota.id}">1</td>
+                                        <td th:text="${mascota.nombre}">Nombre</td>
+                                        <td class="text-center" th:text="${mascota.codigo}">Código</td>
+                                        <td th:text="${mascota.raza}">Raza</td>
+                                        <td class="text-center" th:text="${mascota.edadAproximada}">0</td>
+                                        <td class="text-center" th:text="${#temporals.format(mascota.fechaIngreso, 'yyyy-MM-dd')}">Fecha</td>
+                                        <td th:text="${mascota.observaciones}">Observaciones</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Vacunas -->
+            <div class="tab-pane fade" id="vacunas" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center flex-wrap">
+                        <h4 class="card-title mb-0"><i class="fas fa-syringe"></i> Catálogo de Vacunas</h4>
+                        <span class="badge bg-light text-dark">Total: <span th:text="${vacunas.size()}">0</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="vacunasTable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-id-badge"></i> ID</th>
+                                        <th><i class="fas fa-syringe"></i> Nombre</th>
+                                        <th><i class="fas fa-info-circle"></i> Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="vacuna : ${vacunas}">
+                                        <td th:text="${vacuna.id}">1</td>
+                                        <td th:text="${vacuna.nombre}">Nombre</td>
+                                        <td th:text="${vacuna.descripcion}">Descripción</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Aplicaciones -->
+            <div class="tab-pane fade" id="aplicaciones" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-white d-flex justify-content-between align-items-center flex-wrap">
+                        <h4 class="card-title mb-0"><i class="fas fa-hospital"></i> Historial de Aplicaciones</h4>
+                        <span class="badge bg-light text-dark">Total: <span th:text="${aplicaciones.size()}">0</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="aplicacionesTable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-id-badge"></i> ID</th>
+                                        <th><i class="fas fa-paw"></i> Mascota</th>
+                                        <th><i class="fas fa-syringe"></i> Vacuna</th>
+                                        <th><i class="fas fa-calendar-check"></i> Fecha Aplicación</th>
+                                        <th><i class="fas fa-calendar-plus"></i> Próxima Fecha Refuerzo</th>
+                                        <th><i class="fas fa-comment"></i> Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="app : ${aplicaciones}">
+                                        <td th:text="${app.id}">1</td>
+                                        <td th:with="mascota=${resources.![id].indexOf(app.mascotaId) >= 0 ? resources.get(resources.![id].indexOf(app.mascotaId)) : null}">
+                                            <span th:if="${mascota != null}" th:text="${mascota.nombre + ' - ' + mascota.codigo}">Nombre - Código</span>
+                                            <span th:if="${mascota == null}" th:text="'ID: ' + ${app.mascotaId}">ID Mascota</span>
+                                        </td>
+                                        <td th:with="vacuna=${vacunas.![id].indexOf(app.vacunaId) >= 0 ? vacunas.get(vacunas.![id].indexOf(app.vacunaId)) : null}">
+                                            <span th:if="${vacuna != null}" th:text="${vacuna.nombre}">Nombre Vacuna</span>
+                                            <span th:if="${vacuna == null}" th:text="'ID: ' + ${app.vacunaId}">ID Vacuna</span>
+                                        </td>
+                                        <td th:text="${#temporals.format(app.fechaAplicacion, 'yyyy-MM-dd')}">Fecha</td>
+                                        <td th:text="${app.proximaFechaRefuerzo != null ? #temporals.format(app.proximaFechaRefuerzo, 'yyyy-MM-dd') : '-'}">Próxima Fecha</td>
+                                        <td th:text="${app.observaciones}">Observaciones</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    
+    <!-- Inicializar DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#mascotasTable').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Imprimir',
+                        className: 'btn btn-secondary btn-sm'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> Excel',
+                        className: 'btn btn-success btn-sm'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger btn-sm'
+                    }
+                ]
+            });
+            
+            $('#vacunasTable').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Imprimir',
+                        className: 'btn btn-secondary btn-sm'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> Excel',
+                        className: 'btn btn-success btn-sm'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger btn-sm'
+                    }
+                ]
+            });
+            
+            $('#aplicacionesTable').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Imprimir',
+                        className: 'btn btn-secondary btn-sm'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> Excel',
+                        className: 'btn btn-success btn-sm'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger btn-sm'
+                    }
+                ]
+            });
+        });
+    </script>
+</body>

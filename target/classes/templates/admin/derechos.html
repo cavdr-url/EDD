@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derechos de Autor - Creadores</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Sistema de Gestión</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a th:href="@{/admin/panel}" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0"><i class="fas fa-copyright"></i> Derechos de Autor</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-2">
+                            <i class="fas fa-heart text-danger" style="font-size: 2rem;"></i>
+                        </div>
+                        
+                        <p class="lead text-justify">
+                            El sistema desarrollado para el <strong>Refugio de Animales: El Refugio de ED</strong>, 
+                            ubicado en Jocotán, Chiquimula, ha sido creado exclusivamente con fines de apoyo y bienestar animal.
+                        </p>
+                        
+                        <p class="text-justify">
+                            Este sistema no persigue ningún tipo de lucro, ya que su objetivo principal es facilitar 
+                            la gestión, organización y atención de los animales bajo resguardo del refugio.
+                        </p>
+                        
+                        <hr>
+                        
+                        <h5 class="text-center mb-3"><i class="fas fa-users"></i> Creadores del Proyecto</h5>
+                        
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-graduate fa-2x text-primary mb-2"></i>
+                                        <h6 class="card-title">Mabelin Gisleny Ramírez López</h6>
+                                        <p class="card-text text-muted">Carné: 2094924</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-graduate fa-2x text-success mb-2"></i>
+                                        <h6 class="card-title">César Augusto Valeri Díaz Ramírez</h6>
+                                        <p class="card-text text-muted">Carné: 2325824</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <p class="text-center text-muted small">
+                            <i class="fas fa-paw"></i> Proyecto desarrollado con propósito educativo y de bienestar animal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
