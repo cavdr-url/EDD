@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${aplicacion.id != null ? 'Editar Aplicación' : 'Nueva Aplicación de Vacuna'}">Formulario de Aplicación</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- WatchBootstrap Theme -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Gestión de Aplicaciones</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a th:href="@{/admin/panel}" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h3 class="card-title mb-0" th:text="${aplicacion.id != null ? 'Editar Aplicación de Vacuna' : 'Nueva Aplicación de Vacuna'}">Formulario de Aplicación</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${aplicacion.id != null ? '/aplicaciones/' + aplicacion.id : '/aplicaciones'}" 
+                              th:object="${aplicacion}" method="post">
+                            
+                            <input type="hidden" th:field="*{id}" />
+                            
+                            <div class="mb-3">
+                                <label for="mascotaId">Mascota:</label>
+                                <select class="form-control" id="mascotaId" th:field="*{mascotaId}" required>
+                                    <option value="">-- Seleccionar Mascota --</option>
+                                    <option th:each="mascota : ${mascotas}" 
+                                            th:value="${mascota.id}" 
+                                            th:text="${mascota.nombre + ' (' + mascota.codigo + ')'}">
+                                    </option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="vacunaId">Vacuna:</label>
+                                <select class="form-control" id="vacunaId" th:field="*{vacunaId}" required>
+                                    <option value="">-- Seleccionar Vacuna --</option>
+                                    <option th:each="vacuna : ${vacunas}" 
+                                            th:value="${vacuna.id}" 
+                                            th:text="${vacuna.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="fechaAplicacion">Fecha de Aplicación:</label>
+                                    <input type="date" class="form-control" id="fechaAplicacion" 
+                                           th:field="*{fechaAplicacion}" 
+                                           th:value="${#temporals.format(aplicacion.fechaAplicacion, 'yyyy-MM-dd')}" required>
+                                </div>
+                                
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="proximaFechaRefuerzo">Próxima Fecha de Refuerzo:</label>
+                                    <input type="date" class="form-control" id="proximaFechaRefuerzo" 
+                                           th:field="*{proximaFechaRefuerzo}" 
+                                           th:value="${#temporals.format(aplicacion.proximaFechaRefuerzo, 'yyyy-MM-dd')}">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="observaciones">Observaciones:</label>
+                                <textarea class="form-control" id="observaciones" 
+                                          th:field="*{observaciones}" rows="3" 
+                                          placeholder="Notas sobre la aplicación de la vacuna"></textarea>
+                            </div>
+                            
+                            <div class="mb-3 text-center">
+                                <button type="submit" class="btn btn-success me-2">
+                                    <i class="fas fa-save"></i> Guardar
+                                </button>
+                                <a th:href="@{/admin/panel}" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
