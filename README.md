@@ -1,7 +1,7 @@
 # EDD
-
-
-
+Diseñada para El Refugio de EDZ (Jocotán, Chiquimula), esta plataforma es una herramienta tecnológica gratuita dedicada al bienestar animal. 
+                            
+El proyecto, desarrollado por estudiantes del Profesorado de Enseñanza Media en Tecnologías de la Información y la Comunicación de la Universidad Rafael Landívar, busca digitalizar los procesos administrativos y médicos del refugio, optimizando su labor humanitaria sin fines de lucro.
 
 …or create a new repository on the command line
 - echo "# hello" >> README.md
