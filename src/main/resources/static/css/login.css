@@ -1,3 +1,12 @@
+/* Paleta de colores personalizada basada en el logo */
+:root {
+    --primary-color: #2E7D32;      /* Verde oscuro - color principal del logo */
+    --secondary-color: #81C784;   /* Verde claro - secundario */
+    --accent-color: #FF8F00;       /* Naranja - color de acento */
+    --dark-bg: #1B5E20;            /* Verde muy oscuro */
+    --light-bg: #E8F5E9;           /* Verde muy claro para fondos */
+}
+
 body {
     background-color: #f5f5f5;
     min-height: 100vh;
@@ -5,6 +14,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 15px;
+    background: linear-gradient(135deg, var(--light-bg) 0%, #f5f5f5 100%);
 }
 
 .login-container {
@@ -19,6 +29,13 @@ body {
 
 .btn-primary {
     width: 100%;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-bg);
+    border-color: var(--dark-bg);
 }
 
 .alert {

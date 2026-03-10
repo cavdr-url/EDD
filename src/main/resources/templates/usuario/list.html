@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Usuario - Sistema de Vacunas</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" th:href="@{/images/logo_EDD.jpeg}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -14,12 +16,17 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- DataTables Buttons CSS (Bootstrap 5) -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/panel.css}">
 </head>
 <body>
     <!-- Barra de navegación con botón de cerrar sesión -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Panel de Usuario</a>
+            <a class="navbar-brand mb-0 h1" href="#">
+                <img th:src="@{/images/logo_EDD.jpeg}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle me-2">
+                Panel de Usuario
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -64,7 +71,7 @@
             <!-- Tab Mascotas -->
             <div class="tab-pane fade show active" id="mascotas" role="tabpanel">
                 <div class="card mt-3">
-                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-wrap">
                         <h4 class="card-title mb-0"><i class="fas fa-dog"></i> Listado de Mascotas</h4>
                         <span class="badge bg-light text-dark">Total: <span th:text="${total}">0</span></span>
                     </div>
@@ -132,7 +139,7 @@
             <!-- Tab Aplicaciones -->
             <div class="tab-pane fade" id="aplicaciones" role="tabpanel">
                 <div class="card mt-3">
-                    <div class="card-header bg-warning text-white d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center flex-wrap">
                         <h4 class="card-title mb-0"><i class="fas fa-hospital"></i> Historial de Aplicaciones</h4>
                         <span class="badge bg-light text-dark">Total: <span th:text="${aplicaciones.size()}">0</span></span>
                     </div>

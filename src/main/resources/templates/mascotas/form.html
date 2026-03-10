@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${resource.id == null ? 'Nueva Mascota' : 'Editar Mascota'}">Formulario Mascota</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" th:href="@{/images/logo_EDD.jpeg}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- WatchBootstrap Theme -->
     <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/panel.css}">
 </head>
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Gestión de Mascotas</a>
+            <a class="navbar-brand mb-0 h1" href="#">
+                <img th:src="@{/images/logo_EDD.jpeg}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle me-2">
+                Gestión de Mascotas
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,15 +55,59 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label for="codigo">Código:</label>
-                                <input type="text" id="codigo" th:field="*{codigo}" 
-                                       class="form-control" placeholder="Código de identificación" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="raza">Raza:</label>
-                                <input type="text" id="raza" th:field="*{raza}" 
-                                       class="form-control" placeholder="Raza de la mascota">
+                                <label for="raza">Raza / Especie:</label>
+                                <select id="raza" th:field="*{raza}" class="form-select" required>
+                                    <option value="">Selecciona una raza/especie</option>
+                                    <optgroup label="🐕 Perros">
+                                        <option value="Labrador Retriever">Labrador Retriever</option>
+                                        <option value="Golden Retriever">Golden Retriever</option>
+                                        <option value="German Shepherd">German Shepherd (Pastor Alemán)</option>
+                                        <option value="Bulldog">Bulldog</option>
+                                        <option value="Poodle">Poodle (Caniche)</option>
+                                        <option value="Beagle">Beagle</option>
+                                        <option value="Rottweiler">Rottweiler</option>
+                                        <option value="Dachshund">Dachshund (Salchicha)</option>
+                                        <option value="Boxer">Boxer</option>
+                                        <option value="Shih Tzu">Shih Tzu</option>
+                                        <option value="Chihuahua">Chihuahua</option>
+                                        <option value="Siberian Husky">Siberian Husky</option>
+                                        <option value="Great Dane">Great Dane (Dogo Alemán)</option>
+                                        <option value="Doberman">Doberman</option>
+                                        <option value="Pug">Pug (Carlino)</option>
+                                        <option value="Corgi">Corgi</option>
+                                        <option value="Border Collie">Border Collie</option>
+                                        <option value="Australian Shepherd">Australian Shepherd</option>
+                                        <option value="Dalmatian">Dalmatian (Dálmata)</option>
+                                        <option value="Pitbull">Pitbull</option>
+                                        <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                                        <option value="Maltese">Maltese (Maltés)</option>
+                                        <option value="Pomeranian">Pomeranian</option>
+                                        <option value="Saint Bernard">Saint Bernard (San Bernardo)</option>
+                                        <option value="Newfoundland">Newfoundland (Terranova)</option>
+                                        <option value="Akita">Akita</option>
+                                        <option value="Chow Chow">Chow Chow</option>
+                                        <option value="Cavalier King Charles">Cavalier King Charles</option>
+                                        <option value="Boston Terrier">Boston Terrier</option>
+                                        <option value="Weimaraner">Weimaraner</option>
+                                    </optgroup>
+                                    <optgroup label="🐈 Gatos">
+                                        <option value="Persian">Persian (Persa)</option>
+                                        <option value="Siamese">Siamese (Siamés)</option>
+                                        <option value="Maine Coon">Maine Coon</option>
+                                        <option value="British Shorthair">British Shorthair</option>
+                                        <option value="Ragdoll">Ragdoll</option>
+                                        <option value="Bengal">Bengal</option>
+                                        <option value="Abyssinian">Abyssinian (Abisinio)</option>
+                                        <option value="Scottish Fold">Scottish Fold</option>
+                                        <option value="Sphynx">Sphynx</option>
+                                        <option value="Russian Blue">Russian Blue (Azul Ruso)</option>
+                                        <option value="Norwegian Forest">Norwegian Forest (Bosque de Noruega)</option>
+                                        <option value="Birman">Birman (Birmano)</option>
+                                        <option value="Devon Rex">Devon Rex</option>
+                                        <option value="Oriental Shorthair">Oriental Shorthair</option>
+                                        <option value="Burmese">Burmese (Birmano)</option>
+                                    </optgroup>
+                                </select>
                             </div>
                             
                             <div class="mb-3">
@@ -93,5 +144,7 @@
     <!-- jQuery and Bootstrap JS (Bootstrap 5) -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script personalizado para auto-establecer fecha -->
+    <script th:src="@{/js/mascota-form.js}"></script>
 </body>
 </html>

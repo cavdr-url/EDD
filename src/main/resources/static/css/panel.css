@@ -1,0 +1,361 @@
+/* CSS Responsivo para tablas del panel */
+
+/* Paleta de colores personalizada basada en el logo */
+:root {
+    --primary-color: #2E7D32;      /* Verde oscuro - color principal del logo */
+    --secondary-color: #81C784;   /* Verde claro - secundario */
+    --accent-color: #FF8F00;       /* Naranja - color de acento */
+    --dark-bg: #1B5E20;            /* Verde muy oscuro para navbar */
+    --light-bg: #E8F5E9;           /* Verde muy claro para fondos */
+}
+
+/* Navbar con color verde oscuro personalizado */
+.navbar-dark {
+    background-color: var(--dark-bg) !important;
+}
+
+/* Botones primarios con color verde */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-bg);
+    border-color: var(--dark-bg);
+}
+
+/* Color primario para headers de cards */
+.card-header.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Color success (vacunas) */
+.card-header.bg-success {
+    background-color: var(--primary-color) !important;
+}
+
+/* Color info (aplicaciones) */
+.card-header.bg-info {
+    background-color: #00796B !important;
+}
+
+/* Color warning para aplicaciones */
+.card-header.bg-warning {
+    background-color: var(--accent-color) !important;
+}
+
+/* Links y acentos */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Badge con color verde */
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* DataTables botones primarios */
+.dt-button.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Mejorar el select de cantidad de registros de DataTables */
+.dataTables_length,
+.dt-length {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.dataTables_length select,
+.dt-length select,
+.dataTables_length label,
+.dt-length label {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.dataTables_length select,
+.dt-length select {
+    padding: 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    min-width: 70px;
+    height: 38px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.dataTables_length label,
+.dt-length label {
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Alinear select de longitud con search box */
+.dataTables_length {
+    float: left;
+}
+
+.dataTables_filter {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.dataTables_filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dataTables_filter input {
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    height: 38px;
+    font-size: 14px;
+}
+
+/* Botones de exportación de DataTables */
+.dt-buttons {
+    float: none;
+    text-align: center;
+    margin-bottom: 10px;
+    clear: both;
+}
+
+.dt-buttons .btn,
+.dt-buttons button {
+    height: 38px;
+    padding: 8px 12px;
+    margin: 0 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Contenedor de controles DataTables para alinear todo */
+.dataTables_wrapper .row {
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dataTables_wrapper .col-sm-12 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Ajustar el orden y alineación en pantallas medianas */
+@media (min-width: 768px) {
+    .dataTables_wrapper .col-sm-12 {
+        display: flex;
+    }
+    
+    .dataTables_length {
+        order: 1;
+    }
+    
+    .dataTables_filter {
+        order: 2;
+    }
+    
+    .dt-buttons {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* En móviles, mantener select y búsqueda en la misma línea */
+@media (max-width: 767.98px) {
+    .dataTables_length {
+        float: left;
+        margin-bottom: 10px;
+    }
+    
+    .dataTables_filter {
+        float: right;
+        margin-bottom: 10px;
+    }
+    
+    .dataTables_length select,
+    .dataTables_filter input {
+        width: auto;
+        min-width: 80px;
+    }
+    
+    .dt-buttons {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        clear: both;
+    }
+}
+
+/* Ocultar texto de botones en pantallas pequeñas (menor a 768px) */
+@media (max-width: 767.98px) {
+    /* Ocultar el span con texto del botón en pantallas pequeñas */
+    .btn-responsive .btn-text {
+        display: none;
+    }
+    
+    /* Ajustar padding de botones en móviles */
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    /* Ocultar columna de Observaciones en móviles - Mascotas admin (columna 6) */
+    #mascotasTable th:nth-child(6),
+    #mascotasTable td:nth-child(6) {
+        display: none;
+    }
+    
+    /* Ocultar columna de Observaciones en móviles - Aplicaciones admin (columna 6) */
+    #aplicacionesTable th:nth-child(6),
+    #aplicacionesTable td:nth-child(6) {
+        display: none;
+    }
+    
+    /* Ocultar columna de Observaciones en móviles - Mascotas usuario (columna 7) */
+    #mascotasTable_wrapper #mascotasTable th:nth-child(7),
+    #mascotasTable_wrapper #mascotasTable td:nth-child(7) {
+        display: none;
+    }
+    
+    /* Ocultar columna de Observaciones en móviles - Aplicaciones usuario (columna 6) */
+    #aplicacionesTable_wrapper #aplicacionesTable th:nth-child(6),
+    #aplicacionesTable_wrapper #aplicacionesTable td:nth-child(6) {
+        display: none;
+    }
+    
+    /* Reducir tamaño de fuente en tablas para móviles */
+    .table {
+        font-size: 0.85rem;
+    }
+    
+    /* Ocultar algunas columnas menos importantes en móviles muy pequeños */
+    @media (max-width: 575.98px) {
+        /* Ocultar columna de Raza en móviles muy pequeños */
+        #mascotasTable th:nth-child(3),
+        #mascotasTable td:nth-child(3) {
+            display: none;
+        }
+    }
+}
+
+/* Mejoras adicionales para tablas */
+.table-responsive {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* Botones de acción más compactos */
+td.text-center .btn {
+    margin: 0 2px;
+}
+
+/* Ajustar iconos en botones */
+.btn .fas {
+    margin-right: 0;
+}
+
+/* Espaciado del texto del botón en pantallas grandes */
+@media (min-width: 768px) {
+    .btn-responsive .btn-text {
+        margin-left: 5px;
+    }
+}
+
+/* DataTables info text - alineado a la izquierda y a la altura de la paginación */
+.dataTables_info,
+.dt-info {
+    float: left;
+    padding: 8px 0;
+    margin-top: 0;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* Asegurar que la paginación esté a la derecha */
+.dataTables_paginate,
+.dt-paginate {
+    float: right;
+}
+
+/* Contenedor para alinear info y paginación */
+.dataTables_wrapper .row:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Tabs que abarcan toda la pantalla por igual */
+.nav-tabs {
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.nav-tabs .nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-tabs .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 15px;
+    margin-bottom: -2px;
+    border: 2px solid transparent;
+    border-bottom: none;
+    border-radius: 0.25rem 0.25rem 0 0;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    background-color: rgba(46, 125, 50, 0.1);
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Ajuste responsive para tabs */
+@media (max-width: 575.98px) {
+    .nav-tabs .nav-link {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .nav-tabs .nav-link i {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .nav-tabs .nav-link {
+        padding: 12px 10px;
+    }
+}
+

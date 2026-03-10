@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Mascotas</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" th:href="@{/images/logo_EDD.jpeg}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -14,12 +16,17 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- DataTables Buttons CSS (Bootstrap 5) -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+    <!-- Custom CSS for responsive tables -->
+    <link rel="stylesheet" th:href="@{/css/panel.css}">
 </head>
 <body>
     <!-- Barra de navegación con botón de cerrar sesión -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand mb-0 h1" href="#"><i class="fas fa-paw"></i> Panel de Administración</a>
+            <a class="navbar-brand mb-0 h1" href="#">
+                <img th:src="@{/images/logo_EDD.jpeg}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle me-2">
+                Panel de Administración
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -83,7 +90,6 @@
                                     <tr>
                                         <th><i class="fas fa-id-badge"></i> ID</th>
                                         <th><i class="fas fa-paw"></i> Mascota</th>
-                                        <th><i class="fas fa-qrcode"></i> Código</th>
                                         <th><i class="fas fa-dog"></i> Raza</th>
                                         <th><i class="fas fa-birthday-cake"></i> Edad (meses)</th>
                                         <th><i class="fas fa-calendar-alt"></i> Fecha Ingreso</th>
@@ -95,15 +101,14 @@
                                     <tr th:each="mascota : ${resources}">
                                         <td th:text="${mascota.id}">1</td>
                                         <td th:text="${mascota.nombre}">Nombre</td>
-                                        <td class="text-center" th:text="${mascota.codigo}">Código</td>
                                         <td th:text="${mascota.raza}">Raza</td>
                                         <td class="text-center" th:text="${mascota.edadAproximada}">0</td>
                                         <td class="text-center" th:text="${mascota.fechaIngreso}">Fecha</td>
                                         <td th:text="${mascota.observaciones}">Observaciones</td>
                                         <td class="text-center">
-                                            <a th:href="@{/mascotas/{id}/editar(id=${mascota.id})}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                                            <a th:href="@{/mascotas/{id}/editar(id=${mascota.id})}" class="btn btn-primary btn-sm btn-responsive"><i class="fas fa-edit"></i><span class="btn-text"> Editar</span></a>
                                             <form th:action="@{/mascotas/{id}/eliminar(id=${mascota.id})}" method="post" style="display:inline;">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta mascota?')"><i class="fas fa-trash"></i> Eliminar</button>
+                                                <button type="submit" class="btn btn-danger btn-sm btn-responsive" onclick="return confirm('¿Estás seguro de eliminar esta mascota?')"><i class="fas fa-trash"></i><span class="btn-text"> Eliminar</span></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -145,9 +150,9 @@
                                         <td th:text="${vacuna.nombre}">Nombre</td>
                                         <td th:text="${vacuna.descripcion}">Descripción</td>
                                         <td class="text-center">
-                                            <a th:href="@{/vacunas/{id}/editar(id=${vacuna.id})}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                                            <a th:href="@{/vacunas/{id}/editar(id=${vacuna.id})}" class="btn btn-primary btn-sm btn-responsive"><i class="fas fa-edit"></i><span class="btn-text"> Editar</span></a>
                                             <form th:action="@{/vacunas/{id}/eliminar(id=${vacuna.id})}" method="post" style="display:inline;">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta vacuna?')"><i class="fas fa-trash"></i> Eliminar</button>
+                                                <button type="submit" class="btn btn-danger btn-sm btn-responsive" onclick="return confirm('¿Estás seguro de eliminar esta vacuna?')"><i class="fas fa-trash"></i><span class="btn-text"> Eliminar</span></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -190,7 +195,7 @@
                                     <tr th:each="aplicacion : ${aplicaciones}">
                                         <td th:text="${aplicacion.id}">1</td>
                                         <td th:with="mascota=${resources.![id].indexOf(aplicacion.mascotaId) >= 0 ? resources.get(resources.![id].indexOf(aplicacion.mascotaId)) : null}">
-                                            <span th:if="${mascota != null}" th:text="${mascota.nombre + ' - ' + mascota.codigo}">Nombre - Código</span>
+                                            <span th:if="${mascota != null}" th:text="${mascota.nombre + ' - ' + mascota.raza}">Nombre - Raza</span>
                                             <span th:if="${mascota == null}" th:text="'ID: ' + ${aplicacion.mascotaId}">ID Mascota</span>
                                         </td>
                                         <td th:with="vacuna=${vacunas.![id].indexOf(aplicacion.vacunaId) >= 0 ? vacunas.get(vacunas.![id].indexOf(aplicacion.vacunaId)) : null}">
@@ -201,9 +206,9 @@
                                         <td class="text-center" th:text="${aplicacion.proximaFechaRefuerzo}">Próxima Fecha</td>
                                         <td th:text="${aplicacion.observaciones}">Observaciones</td>
                                         <td class="text-center">
-                                            <a th:href="@{/aplicaciones/{id}/editar(id=${aplicacion.id})}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                                            <a th:href="@{/aplicaciones/{id}/editar(id=${aplicacion.id})}" class="btn btn-primary btn-sm btn-responsive"><i class="fas fa-edit"></i><span class="btn-text"> Editar</span></a>
                                             <form th:action="@{/aplicaciones/{id}/eliminar(id=${aplicacion.id})}" method="post" style="display:inline;">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta aplicación?')"><i class="fas fa-trash"></i> Eliminar</button>
+                                                <button type="submit" class="btn btn-danger btn-sm btn-responsive" onclick="return confirm('¿Estás seguro de eliminar esta aplicación?')"><i class="fas fa-trash"></i><span class="btn-text"> Eliminar</span></button>
                                             </form>
                                         </td>
                                     </tr>

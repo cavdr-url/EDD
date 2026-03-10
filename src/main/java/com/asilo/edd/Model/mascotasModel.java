@@ -15,7 +15,6 @@ public class mascotasModel {
     private Long id;
 
     private String nombre;               // Nombre del perrito
-    private String codigo;               // Código o identificación
     private String raza;                 // Raza
     private Integer edadAproximada;      // Edad aproximada en meses
     private java.time.LocalDate fechaIngreso; // Fecha de ingreso al refugio
@@ -25,12 +24,11 @@ public class mascotasModel {
     public mascotasModel() { }
 
     // Constructor con parámetros
-    public mascotasModel(String nombre, String codigo, String raza,
+    public mascotasModel(String nombre, String raza,
                Integer edadAproximada, java.time.LocalDate fechaIngreso,
                String observaciones) {
 
         this.nombre = nombre;
-        this.codigo = codigo;
         this.raza = raza;
         this.edadAproximada = edadAproximada;
         this.fechaIngreso = fechaIngreso;
@@ -43,9 +41,6 @@ public class mascotasModel {
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
 
     public String getRaza() { return raza; }
     public void setRaza(String raza) { this.raza = raza; }
