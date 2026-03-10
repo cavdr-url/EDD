@@ -25,9 +25,10 @@ public class vacunasController {
 
     // POST /vacunas -> crear
     @PostMapping
-    public String create(@ModelAttribute vacunasModel vacuna) {
+    public String create(@ModelAttribute vacunasModel vacuna,
+                         @RequestParam(value = "tab", defaultValue = "vacunas") String tab) {
         repo.save(vacuna);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 
     // GET /vacunas/{id}/editar -> formulario con datos
@@ -41,16 +42,17 @@ public class vacunasController {
 
     // POST /vacunas/{id} -> actualizar
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute vacunasModel vacuna) {
+    public String update(@PathVariable Long id, @ModelAttribute vacunasModel vacuna,
+                        @RequestParam(value = "tab", defaultValue = "vacunas") String tab) {
         vacuna.setId(id);
         repo.save(vacuna);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 
     // POST /vacunas/{id}/eliminar -> borrar
     @PostMapping("/{id}/eliminar")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, @RequestParam(value = "tab", defaultValue = "vacunas") String tab) {
         repo.deleteById(id);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 }

@@ -30,7 +30,8 @@ public class mascotasController {
 
     // POST /mascotas -> crear
     @PostMapping
-    public String create(@ModelAttribute mascotasModel resource, @RequestParam("imagenFile") MultipartFile imagenFile) {
+    public String create(@ModelAttribute mascotasModel resource, @RequestParam("imagenFile") MultipartFile imagenFile,
+                          @RequestParam(value = "tab", defaultValue = "mascotas") String tab) {
         // Convertir imagen a Base64 si se subió
         if (!imagenFile.isEmpty()) {
             try {
@@ -49,7 +50,7 @@ public class mascotasController {
             resource.setImagen(null);
         }
         repo.save(resource);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 
     // GET /mascotas/{id}/editar -> formulario con datos
@@ -63,7 +64,9 @@ public class mascotasController {
 
     // POST /mascotas/{id} -> actualizar
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute mascotasModel resource, @RequestParam(value = "imagenFile", required = false) MultipartFile imagenFile) {
+    public String update(@PathVariable Long id, @ModelAttribute mascotasModel resource, 
+                         @RequestParam(value = "imagenFile", required = false) MultipartFile imagenFile,
+                         @RequestParam(value = "tab", defaultValue = "mascotas") String tab) {
         mascotasModel existing = repo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         
@@ -88,19 +91,20 @@ public class mascotasController {
         }
         
         repo.save(resource);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 
     // POST /mascotas/{id}/eliminar -> borrar
     @PostMapping("/{id}/eliminar")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, @RequestParam(value = "tab", defaultValue = "mascotas") String tab) {
         repo.deleteById(id);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 
     // POST /mascotas/{id}/adoptar -> registrar adopción
     @PostMapping("/{id}/adoptar")
-    public String adoptar(@PathVariable Long id, @RequestParam String adoptante) {
+    public String adoptar(@PathVariable Long id, @RequestParam String adoptante,
+                          @RequestParam(value = "tab", defaultValue = "adopcion") String tab) {
         mascotasModel mascota = repo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         
@@ -117,12 +121,13 @@ public class mascotasController {
         mascota.setObservaciones(nuevaObservacion);
         
         repo.save(mascota);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
     
     // POST /mascotas/{id}/actualizarAdopcion -> actualizar info de adopción
     @PostMapping("/{id}/actualizarAdopcion")
-    public String actualizarAdopcion(@PathVariable Long id, @RequestParam String adoptante) {
+    public String actualizarAdopcion(@PathVariable Long id, @RequestParam String adoptante,
+                                    @RequestParam(value = "tab", defaultValue = "adopcion") String tab) {
         mascotasModel mascota = repo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         
@@ -145,12 +150,12 @@ public class mascotasController {
         mascota.setObservaciones(obsActual);
         
         repo.save(mascota);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
     
     // POST /mascotas/{id}/cancelarAdopcion -> cancelar adopción (regresa a disponible)
     @PostMapping("/{id}/cancelarAdopcion")
-    public String cancelarAdopcion(@PathVariable Long id) {
+    public String cancelarAdopcion(@PathVariable Long id, @RequestParam(value = "tab", defaultValue = "adopcion") String tab) {
         mascotasModel mascota = repo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         
@@ -175,7 +180,7 @@ public class mascotasController {
         }
         
         repo.save(mascota);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel#" + tab;
     }
 }
 
