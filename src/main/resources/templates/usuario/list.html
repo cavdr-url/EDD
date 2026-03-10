@@ -54,6 +54,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" id="adopciones-tab" data-bs-toggle="tab" href="#adopciones" role="tab">
+                    <i class="fas fa-heart d-none d-sm-inline"></i> Adopciones
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="vacunas-tab" data-bs-toggle="tab" href="#vacunas" role="tab">
                     <i class="fas fa-syringe d-none d-sm-inline"></i> Vacunas
                 </a>
@@ -77,27 +82,69 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="mascotasTable" class="table table-striped table-bordered" style="width:100%">
+                            <table id="mascotasTable" class="table table-striped table-bordered rounded" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th><i class="fas fa-id-badge"></i> ID</th>
+                                        <th class="d-none d-md-table-cell"><i class="fas fa-image"></i> Foto</th>
                                         <th><i class="fas fa-paw"></i> Nombre</th>
-                                        <th><i class="fas fa-qrcode"></i> Código</th>
                                         <th><i class="fas fa-dog"></i> Raza</th>
                                         <th><i class="fas fa-birthday-cake"></i> Edad (meses)</th>
-                                        <th><i class="fas fa-calendar-alt"></i> Fecha Ingreso</th>
-                                        <th><i class="fas fa-comment"></i> Observaciones</th>
+                                        <th class="d-none d-lg-table-cell"><i class="fas fa-calendar-alt"></i> Fecha Ingreso</th>
+                                        <th class="d-none d-xl-table-cell"><i class="fas fa-comment"></i> Observaciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="mascota : ${resources}">
                                         <td th:text="${mascota.id}">1</td>
+                                        <td class="d-none d-md-table-cell text-center">
+                                            <img th:if="${mascota.imagen}" th:src="${mascota.imagen}" alt="Foto" 
+                                                 class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <span th:unless="${mascota.imagen}" class="text-muted"><i class="fas fa-paw fa-2x"></i></span>
+                                        </td>
                                         <td th:text="${mascota.nombre}">Nombre</td>
-                                        <td class="text-center" th:text="${mascota.codigo}">Código</td>
                                         <td th:text="${mascota.raza}">Raza</td>
                                         <td class="text-center" th:text="${mascota.edadAproximada}">0</td>
-                                        <td class="text-center" th:text="${#temporals.format(mascota.fechaIngreso, 'yyyy-MM-dd')}">Fecha</td>
-                                        <td th:text="${mascota.observaciones}">Observaciones</td>
+                                        <td class="text-center d-none d-lg-table-cell" th:text="${#temporals.format(mascota.fechaIngreso, 'yyyy-MM-dd')}">Fecha</td>
+                                        <td class="d-none d-xl-table-cell" th:text="${mascota.observaciones}">Observaciones</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Adopciones -->
+            <div class="tab-pane fade" id="adopciones" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center flex-wrap">
+                        <h4 class="card-title mb-0"><i class="fas fa-heart"></i> Mascotas Adoptadas</h4>
+                        <span class="badge bg-light text-dark">Total: <span th:text="${adoptadas.size()}">0</span></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="adoptadasTable" class="table table-striped table-bordered rounded" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-image"></i> Foto</th>
+                                        <th><i class="fas fa-paw"></i> Nombre</th>
+                                        <th><i class="fas fa-dog"></i> Raza</th>
+                                        <th><i class="fas fa-user"></i> Adoptante</th>
+                                        <th><i class="fas fa-calendar-alt"></i> Fecha Adopción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="mascota : ${adoptadas}">
+                                        <td class="text-center">
+                                            <img th:if="${mascota.imagen}" th:src="${mascota.imagen}" alt="Foto" 
+                                                 class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <span th:unless="${mascota.imagen}" class="text-muted"><i class="fas fa-paw fa-2x"></i></span>
+                                        </td>
+                                        <td th:text="${mascota.nombre}">Nombre</td>
+                                        <td th:text="${mascota.raza}">Raza</td>
+                                        <td th:text="${mascota.adoptante}">Adoptante</td>
+                                        <td class="text-center" th:text="${mascota.fechaAdopcion}">Fecha</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -115,7 +162,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="vacunasTable" class="table table-striped table-bordered" style="width:100%">
+                            <table id="vacunasTable" class="table table-striped table-bordered rounded" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th><i class="fas fa-id-badge"></i> ID</th>
@@ -145,7 +192,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="aplicacionesTable" class="table table-striped table-bordered" style="width:100%">
+                            <table id="aplicacionesTable" class="table table-striped table-bordered rounded" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th><i class="fas fa-id-badge"></i> ID</th>
@@ -160,7 +207,7 @@
                                     <tr th:each="app : ${aplicaciones}">
                                         <td th:text="${app.id}">1</td>
                                         <td th:with="mascota=${resources.![id].indexOf(app.mascotaId) >= 0 ? resources.get(resources.![id].indexOf(app.mascotaId)) : null}">
-                                            <span th:if="${mascota != null}" th:text="${mascota.nombre + ' - ' + mascota.codigo}">Nombre - Código</span>
+                                            <span th:if="${mascota != null}" th:text="${mascota.nombre + ' - ' + mascota.raza}">Nombre - Raza</span>
                                             <span th:if="${mascota == null}" th:text="'ID: ' + ${app.mascotaId}">ID Mascota</span>
                                         </td>
                                         <td th:with="vacuna=${vacunas.![id].indexOf(app.vacunaId) >= 0 ? vacunas.get(vacunas.![id].indexOf(app.vacunaId)) : null}">
@@ -200,6 +247,7 @@
     <!-- Inicializar DataTables -->
     <script>
         $(document).ready(function() {
+            // Tabla Mascotas
             $('#mascotasTable').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
@@ -209,21 +257,68 @@
                     {
                         extend: 'print',
                         text: '<i class="fas fa-print"></i> Imprimir',
-                        className: 'btn btn-secondary btn-sm'
+                        className: 'btn btn-secondary btn-sm',
+                        title: '',
+                        exportOptions: {
+                            columns: ':not(.export-hidden)'
+                        },
+                        customize: function(win) {
+                            $(win.document.body).prepend('<h2>Listado de Mascotas</h2>');
+                        }
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fas fa-file-excel"></i> Excel',
-                        className: 'btn btn-success btn-sm'
+                        className: 'btn btn-success btn-sm',
+                        title: 'Listado de Mascotas',
+                        exportOptions: {
+                            columns: ':not(.export-hidden)'
+                        }
                     },
                     {
                         extend: 'pdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
-                        className: 'btn btn-danger btn-sm'
+                        className: 'btn btn-danger btn-sm',
+                        title: 'Listado de Mascotas',
+                        exportOptions: {
+                            columns: ':not(.export-hidden)'
+                        }
                     }
                 ]
             });
             
+            // Tabla Adopciones
+            $('#adoptadasTable').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Imprimir',
+                        className: 'btn btn-secondary btn-sm',
+                        title: '',
+                        customize: function(win) {
+                            $(win.document.body).prepend('<h2>Mascotas Adoptadas</h2>');
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> Excel',
+                        className: 'btn btn-success btn-sm',
+                        title: 'Mascotas Adoptadas'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger btn-sm',
+                        title: 'Mascotas Adoptadas'
+                    }
+                ]
+            });
+            
+            // Tabla Vacunas
             $('#vacunasTable').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
@@ -233,21 +328,28 @@
                     {
                         extend: 'print',
                         text: '<i class="fas fa-print"></i> Imprimir',
-                        className: 'btn btn-secondary btn-sm'
+                        className: 'btn btn-secondary btn-sm',
+                        title: '',
+                        customize: function(win) {
+                            $(win.document.body).prepend('<h2>Catálogo de Vacunas</h2>');
+                        }
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fas fa-file-excel"></i> Excel',
-                        className: 'btn btn-success btn-sm'
+                        className: 'btn btn-success btn-sm',
+                        title: 'Catálogo de Vacunas'
                     },
                     {
                         extend: 'pdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
-                        className: 'btn btn-danger btn-sm'
+                        className: 'btn btn-danger btn-sm',
+                        title: 'Catálogo de Vacunas'
                     }
                 ]
             });
             
+            // Tabla Aplicaciones
             $('#aplicacionesTable').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
@@ -257,20 +359,28 @@
                     {
                         extend: 'print',
                         text: '<i class="fas fa-print"></i> Imprimir',
-                        className: 'btn btn-secondary btn-sm'
+                        className: 'btn btn-secondary btn-sm',
+                        title: '',
+                        customize: function(win) {
+                            $(win.document.body).prepend('<h2>Historial de Aplicaciones</h2>');
+                        }
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fas fa-file-excel"></i> Excel',
-                        className: 'btn btn-success btn-sm'
+                        className: 'btn btn-success btn-sm',
+                        title: 'Historial de Aplicaciones'
                     },
                     {
                         extend: 'pdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
-                        className: 'btn btn-danger btn-sm'
+                        className: 'btn btn-danger btn-sm',
+                        title: 'Historial de Aplicaciones'
                     }
                 ]
             });
         });
     </script>
 </body>
+</html>
+

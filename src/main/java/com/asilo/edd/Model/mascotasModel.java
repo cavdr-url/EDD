@@ -5,6 +5,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "perros")
@@ -19,20 +21,32 @@ public class mascotasModel {
     private Integer edadAproximada;      // Edad aproximada en meses
     private java.time.LocalDate fechaIngreso; // Fecha de ingreso al refugio
     private String observaciones;        // Notas importantes
+    
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String imagen;                // Imagen de la mascota (Base64)
+    
+    private String estado;               // Estado: disponible / adoptado
+    private java.time.LocalDate fechaAdopcion; // Fecha de adopción
+    private String adoptante;            // Nombre del adoptante
 
     // Constructor vacío (obligatorio para JPA)
-    public mascotasModel() { }
+    public mascotasModel() { 
+        this.estado = "disponible"; // Valor por defecto
+    }
 
     // Constructor con parámetros
     public mascotasModel(String nombre, String raza,
                Integer edadAproximada, java.time.LocalDate fechaIngreso,
-               String observaciones) {
+               String observaciones, String imagen) {
 
         this.nombre = nombre;
         this.raza = raza;
         this.edadAproximada = edadAproximada;
         this.fechaIngreso = fechaIngreso;
         this.observaciones = observaciones;
+        this.imagen = imagen;
+        this.estado = "disponible";
     }
 
     // Getters y setters
@@ -53,4 +67,16 @@ public class mascotasModel {
 
     public String getObservaciones() { return observaciones; }
     public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+
+    public String getImagen() { return imagen; }
+    public void setImagen(String imagen) { this.imagen = imagen; }
+
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+
+    public java.time.LocalDate getFechaAdopcion() { return fechaAdopcion; }
+    public void setFechaAdopcion(java.time.LocalDate fechaAdopcion) { this.fechaAdopcion = fechaAdopcion; }
+
+    public String getAdoptante() { return adoptante; }
+    public void setAdoptante(String adoptante) { this.adoptante = adoptante; }
 }

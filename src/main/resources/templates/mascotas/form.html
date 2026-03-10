@@ -44,7 +44,7 @@
                     </div>
                     <div class="card-body">
                         <form th:action="${resource.id == null ? '/mascotas' : '/mascotas/' + resource.id}" 
-                              th:object="${resource}" method="post">
+                              th:object="${resource}" method="post" enctype="multipart/form-data">
                             
                             <input type="hidden" th:field="*{id}" />
                             
@@ -128,6 +128,19 @@
                                 <textarea id="observaciones" th:field="*{observaciones}" 
                                           class="form-control" rows="3" 
                                           placeholder="Notas importantes sobre la mascota"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="imagenFile">Foto de la Mascota:</label>
+                                <input type="file" id="imagenFile" name="imagenFile" 
+                                       class="form-control" accept="image/*">
+                                <small class="text-muted">Tamaño máximo: 1MB. Formatos: JPG, PNG, GIF</small>
+                                <!-- Preview de imagen actual en edición -->
+                                <div th:if="${resource.imagen}" class="mt-2">
+                                    <img th:src="${resource.imagen}" alt="Imagen actual" 
+                                         class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                                    <p class="text-muted small">Imagen actual</p>
+                                </div>
                             </div>
                             
                             <div class="mb-3 text-center">

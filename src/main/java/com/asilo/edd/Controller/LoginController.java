@@ -43,6 +43,11 @@ public class LoginController {
         model.addAttribute("totalVacunas", repoVacunas.count());
         model.addAttribute("aplicaciones", repoAplicaciones.findAll());
         model.addAttribute("totalAplicaciones", repoAplicaciones.count());
+        
+        // Agregar mascotas para adopción
+        model.addAttribute("disponibles", repoMascotas.findByEstado("disponible"));
+        model.addAttribute("adoptadas", repoMascotas.findByEstado("adoptado"));
+        
         return "admin/panel";
     }
 
@@ -52,6 +57,7 @@ public class LoginController {
         model.addAttribute("total", repoMascotas.count());
         model.addAttribute("vacunas", repoVacunas.findAll());
         model.addAttribute("aplicaciones", repoAplicaciones.findAll());
+        model.addAttribute("adoptadas", repoMascotas.findByEstado("adoptado"));
         return "usuario/list";
     }
 

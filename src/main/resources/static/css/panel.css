@@ -304,6 +304,15 @@ td.text-center .btn {
     flex-wrap: wrap;
 }
 
+/* Ocultar columna de acciones en impresión y exportación */
+@media print {
+    .export-hidden,
+    td.export-hidden,
+    th.export-hidden {
+        display: none !important;
+    }
+}
+
 /* Tabs que abarcan toda la pantalla por igual */
 .nav-tabs {
     display: flex;
