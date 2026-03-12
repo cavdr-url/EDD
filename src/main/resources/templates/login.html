@@ -36,7 +36,7 @@
                 
                 <!-- Formulario de login -->
                 <form th:action="@{/login}" method="post">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="username">Usuario:</label>
                         <input type="text" id="username" name="username" 
                                class="form-control" 
@@ -44,7 +44,7 @@
                                required autofocus>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="password">Contraseña:</label>
                         <input type="password" id="password" name="password" 
                                class="form-control" 
@@ -60,7 +60,8 @@
                 <hr>
                 
                 <div class="text-center">
-                    <a th:href="@{/derechos}" class="btn btn-info btn-sm me-2"><i class="fas fa-users"></i> Creadores</a>
+                    <a th:href="@{/derechos}" class="btn btn-info btn-sm"><i class="fas fa-users"></i> Creadores</a>
+                    <a href="https://www.facebook.com/share/14Wfu17PEZt/" target="_blank" class="btn btn-info btn-sm"><i class="fa-brands fa-facebook"></i> Página oficial</a>
                 </div>
             </div>
         </div>
